@@ -1,0 +1,8 @@
+{
+  "name": "R&J Advisory",
+  "description": "A Namibian trade, investment, and economic advisory firm.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

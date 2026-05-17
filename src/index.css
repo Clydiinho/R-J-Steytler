@@ -1,0 +1,97 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Griffiths", "Cormorant Garamond", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  --color-rj-base: #080E1A;
+  --color-rj-navy: #0A1628;
+  --color-rj-navy-light: #0B1526;
+  --color-rj-navy-dark: #050D1A;
+  --color-rj-nav-ticker: #0F1E35;
+  --color-rj-gold: #C8A24A;
+  --color-rj-green: #00FF88;
+  --color-rj-red: #FF4444;
+  --color-rj-cream: #F0EAD6;
+  --color-rj-cream-dark: #EDE5D0;
+  --color-rj-amber: #FFBF00;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-rj-base);
+    color: white;
+  }
+}
+
+@layer utilities {
+  .clip-dunes {
+    clip-path: polygon(0 0, 90% 0, 70% 100%, 0 100%);
+  }
+
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes ticker {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-ticker {
+  animation: ticker 30s linear infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float-delay-1 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes float-delay-2 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+@keyframes float-delay-3 { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+.float-d1 { animation: float-delay-1 4.5s ease-in-out infinite 0.5s; }
+.float-d2 { animation: float-delay-2 3.8s ease-in-out infinite 1.2s; }
+.float-d3 { animation: float-delay-3 5.2s ease-in-out infinite 0.2s; }
+
+@keyframes pulse-ring {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(0, 255, 136, 0.5); background-color: var(--color-rj-green); }
+  50% { box-shadow: 0 0 0 8px rgba(0, 255, 136, 0); background-color: rgba(0, 255, 136, 0.8); }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s infinite;
+}
+
+@keyframes scanline {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+
+.animate-scanline {
+  animation: scanline 8s linear infinite;
+}
+
+@keyframes grow {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+.animate-grow {
+  animation: grow 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: bottom;
+}

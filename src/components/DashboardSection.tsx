@@ -1,11 +1,6 @@
 export default function DashboardSection() {
-  const dataPoints = [2.5, -8.5, 3.1, 4.0, 4.2, 4.6, 4.9];
+  const dataPoints = [2.5, -8.5, 3.1, 4.0, 4.2, 2.4, 2.0];
   const years = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
-  
-  // Map data values to SVG coordinates
-  // Y range: min ~ -9, max ~ 5 -> spread is 14. 
-  // Let's set viewBox 0 0 700 300
-  // X step: 100 per point
   
   const width = 700;
   const height = 300;
@@ -15,7 +10,6 @@ export default function DashboardSection() {
   
   const points = dataPoints.map((val, i) => {
     const x = i * (width / (dataPoints.length - 1));
-    // Invert Y so positive is up
     const normalizedY = (val - yMin) / yRange;
     const y = height - (normalizedY * height);
     return { x, y, val, year: years[i] };
@@ -23,7 +17,6 @@ export default function DashboardSection() {
 
   const polylineStr = points.map(p => `${p.x},${p.y}`).join(' ');
   const zeroLineY = height - ((0 - yMin) / yRange) * height;
-  
   const polygonStr = `0,${height} ${polylineStr} ${width},${height}`;
 
   return (
@@ -32,12 +25,12 @@ export default function DashboardSection() {
         
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-8 pb-6 border-b border-white/10">
           <div className="mb-4 md:mb-0">
-            <h2 className="bg-white/5 backdrop-blur-md border border-rj-gold/30 rounded-full px-4 py-1.5 font-bold text-sm tracking-wider text-white shadow-[0_0_15px_rgba(200,162,74,0.1)]">
-              Live Economic Snapshot
+            <h2 className="bg-white/5 backdrop-blur-md border border-rj-gold/30 rounded-full px-4 py-1.5 font-bold text-sm tracking-wider text-white shadow-[0_0_15px_rgba(200,162,74,0.1)] inline-block">
+              Namibia Macro Indicators Snapshot
             </h2>
           </div>
           <div className="text-xs text-gray-400 tracking-widest bg-white/5 backdrop-blur-md px-3 py-1.5 border border-white/10 rounded-full">
-            NAMIBIA · UPDATED MONTHLY
+            NAMIBIA · NSA &amp; BANK OF NAMIBIA FEEDS
           </div>
         </div>
 
@@ -83,14 +76,12 @@ export default function DashboardSection() {
               {/* Points */}
               {points.map((p, i) => (
                 <g key={i}>
-                  {/* COVID Dip notation */}
                   {p.year === 2019 && (
                     <text x={p.x + 10} y={p.y + 15} fill="var(--color-rj-red)" fontSize="10" fontWeight="bold">COVID-19</text>
                   )}
                   
                   <circle cx={p.x} cy={p.y} r="4" fill="var(--color-rj-base)" stroke="var(--color-rj-gold)" strokeWidth="2" />
                   
-                  {/* Value labels on hover or visible for wide screens */}
                   <text 
                     x={p.x} 
                     y={p.y - 15} 
@@ -111,44 +102,46 @@ export default function DashboardSection() {
                 </text>
               ))}
             </svg>
-            <div className="absolute top-0 right-0 font-mono text-[10px] text-gray-400 border border-white/10 px-3 py-1.5 rounded-full bg-white/5 backdrop-blur-sm">REAL GDP GROWTH (YoY)</div>
+            <div className="absolute top-0 right-0 font-mono text-[10px] text-gray-400 border border-white/10 px-3 py-1.5 rounded-full bg-white/5 backdrop-blur-sm">
+              REAL GDP GROWTH (YoY)
+            </div>
           </div>
 
           {/* Bottom Metric Cards */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col justify-between hover:bg-white/10 hover:border-rj-gold/30 transition-all duration-300 shadow-[0_4px_15px_rgba(0,0,0,0.2)]">
-              <span className="text-gray-400 text-xs mb-2">GDP Growth</span>
+              <span className="text-gray-400 text-xs mb-2">Repo Rate (BoN)</span>
               <div className="flex items-center justify-between">
-                <span className="text-xl sm:text-2xl font-medium">4.2%</span>
-                <span className="text-rj-green text-sm flex items-center justify-center bg-rj-green/10 w-6 h-6 rounded-full">▲</span>
+                <span className="text-xl sm:text-2xl font-medium">6.75%</span>
+                <span className="text-rj-gold text-xs flex items-center justify-center bg-rj-gold/10 px-2 py-0.5 rounded-full">Peg Align</span>
               </div>
             </div>
             
             <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col justify-between hover:bg-white/10 hover:border-rj-gold/30 transition-all duration-300 shadow-[0_4px_15px_rgba(0,0,0,0.2)]">
-              <span className="text-gray-400 text-xs mb-2">Inflation</span>
+              <span className="text-gray-400 text-xs mb-2">Foreign Reserves</span>
               <div className="flex items-center justify-between">
-                <span className="text-xl sm:text-2xl font-medium">5.1%</span>
-                <span className="text-rj-red text-sm flex items-center justify-center bg-rj-red/10 w-6 h-6 rounded-full">▼</span>
+                <span className="text-xl sm:text-2xl font-medium">N$58.8B</span>
+                <span className="text-rj-green text-sm flex items-center justify-center bg-rj-green/10 w-6 h-6 rounded-full">▲</span>
               </div>
             </div>
 
             <div className="bg-white/5 backdrop-blur-md border border-rj-amber/30 rounded-2xl p-4 sm:p-5 flex flex-col justify-between hover:bg-white/10 transition-all duration-300 relative overflow-hidden shadow-[0_4px_15px_rgba(255,191,0,0.1)]">
-               <div className="absolute top-0 right-0 w-16 h-16 bg-rj-amber/10 blur-xl"></div>
+              <div className="absolute top-0 right-0 w-16 h-16 bg-rj-amber/10 blur-xl"></div>
               <span className="text-gray-400 text-xs mb-2 flex items-center justify-between">
                 Unemployment
-                <span className="text-[10px] text-rj-amber border border-rj-amber/30 px-2 py-0.5 rounded-full bg-rj-amber/10">concern</span>
+                <span className="text-[10px] text-rj-amber border border-rj-amber/30 px-2 py-0.5 rounded-full bg-rj-amber/10">Census</span>
               </span>
               <div className="flex items-center justify-between">
-                <span className="text-xl sm:text-2xl font-medium text-rj-amber">33.4%</span>
+                <span className="text-xl sm:text-2xl font-medium text-rj-amber">36.9%</span>
                 <span className="text-rj-red text-sm flex items-center justify-center bg-rj-red/10 w-6 h-6 rounded-full">▼</span>
               </div>
             </div>
 
             <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-4 sm:p-5 flex flex-col justify-between hover:bg-white/10 hover:border-rj-gold/30 transition-all duration-300 shadow-[0_4px_15px_rgba(0,0,0,0.2)]">
-              <span className="text-gray-400 text-xs mb-2">FDI Inflow</span>
+              <span className="text-gray-400 text-xs mb-2">Offshore Discoveries</span>
               <div className="flex items-center justify-between">
-                <span className="text-xl sm:text-2xl font-medium">$1.2B</span>
-                <span className="text-rj-green text-sm flex items-center justify-center bg-rj-green/10 w-6 h-6 rounded-full">▲</span>
+                <span className="text-xl sm:text-2xl font-medium">&gt;20B</span>
+                <span className="text-rj-gold text-xs flex items-center justify-center bg-rj-gold/10 px-2 py-0.5 rounded-full">boe</span>
               </div>
             </div>
           </div>

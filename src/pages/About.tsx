@@ -1,150 +1,191 @@
 import { useEffect, useRef } from 'react';
-import { ArrowRight, Lightbulb, MapPin, Globe } from 'lucide-react';
+import { ArrowRight, Landmark, Briefcase, FileCode2, CheckCircle2, ShieldCheck, Award } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import FactStrip from '../components/FactStrip';
+import MilestonesSection from '../components/MilestonesSection';
+import GlobalCta from '../components/GlobalCta';
 
 export default function About() {
   const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    const elements = sectionRef.current?.querySelectorAll('.fade-up');
-    elements?.forEach(el => observer.observe(el));
-
-    return () => observer.disconnect();
   }, []);
 
   const pillars = [
     {
       id: '01',
-      title: 'Insight-Driven Precision',
-      icon: <Lightbulb size={24} />,
-      description: 'We do not rely on surface-level data. Our approach is rooted in rigorous, ground-level economic research and predictive modeling. We understand the nuances of the Namibian market—from regulatory shifts to macroeconomic trends—allowing our partners to make decisions with confidence and clarity in an emerging landscape.'
+      title: 'Government and institutional coordination',
+      icon: <Landmark size={26} strokeWidth={1.5} />,
+      description: 'Institutional mapping, approval pathways, policy analysis and structured engagement between public and private participants.'
     },
     {
       id: '02',
-      title: 'Locally Rooted Expertise',
-      icon: <MapPin size={24} />,
-      description: 'Based in Windhoek, we have cultivated deep relationships with key local stakeholders, regulatory bodies, and industry leaders. Our intimate understanding of the domestic business environment ensures that international capital is not only deployed effectively but is structured to thrive within the local context, derisking investments and fostering sustainable growth.'
+      title: 'Private-sector and investment advisory',
+      icon: <Briefcase size={26} strokeWidth={1.5} />,
+      description: 'Market assessment, commercial analysis, market entry, business expansion and investment readiness.'
     },
     {
       id: '03',
-      title: 'Globally Connected Networks',
-      icon: <Globe size={24} />,
-      description: 'We serve as the bridge between Namibia\'s frontier opportunities and global institutional capital. Our extensive network spans international Development Finance Institutions (DFIs), private equity funds, and multinational corporations. We structure opportunities that meet global standards of compliance, yield, and impact, ensuring seamless cross-border capital deployment.'
+      title: 'Project development and finance',
+      icon: <FileCode2 size={26} strokeWidth={1.5} />,
+      description: 'Project concepts, financial models, funding strategies, investor materials, risk registers and development roadmaps.'
+    },
+    {
+      id: '04',
+      title: 'Implementation support',
+      icon: <CheckCircle2 size={26} strokeWidth={1.5} />,
+      description: 'Action plans, assigned responsibilities, project trackers, decision logs, milestones and executive reporting.'
     }
   ];
 
+  const methodStages = [
+    { num: "01", step: "Define the decision", desc: "Agree the exact question, the deadline and the output required." },
+    { num: "02", step: "Gather evidence", desc: "Review data, financial information, policy requirements, documents and stakeholder views." },
+    { num: "03", step: "Test the options", desc: "Compare costs, risks, assumptions, institutional requirements and financing implications." },
+    { num: "04", step: "Recommend a course of action", desc: "Present the options, the trade-offs and the reasons for the recommendation." },
+    { num: "05", step: "Organise implementation", desc: "Translate the decision into actions, responsible parties, deadlines and reporting." }
+  ];
+
+  const values = [
+    { num: "01", title: "Evidence before assertion", desc: "Important recommendations state their sources, assumptions and limitations." },
+    { num: "02", title: "Direct senior accountability", desc: "Every assignment has a named senior adviser responsible for its quality and delivery." },
+    { num: "03", title: "Clear attribution", desc: "Achievements from previous public, private or institutional roles are credited to the person and organisation where the work occurred." },
+    { num: "04", title: "Commercial and public value", desc: "Recommendations weigh financial viability, institutional requirements and national development priorities." },
+    { num: "05", title: "Implementation with ownership", desc: "Strategies conclude with actions, responsible parties, deadlines and measures of progress." },
+    { num: "06", title: "Independence and discretion", desc: "Conflicts of interest are declared, sensitive information is protected, and advice is based on the client's stated objectives." }
+  ];
+
   return (
-    <div className="pt-32 pb-24" ref={sectionRef}>
+    <div className="pt-32 pb-24 text-white relative" ref={sectionRef}>
       {/* Hero Section for About Page */}
-      <section className="relative px-6 max-w-7xl mx-auto mb-24">
-        <div className="flex flex-col md:flex-row gap-12 items-center">
-          <div className="md:w-1/2">
-            <div className="fade-up">
-              <span className="font-mono text-xs uppercase border border-white/20 bg-white/5 backdrop-blur-md px-3 py-1.5 rounded-full text-rj-gold tracking-widest pl-4">
-                <span className="inline-block w-4 h-[1px] bg-rj-gold align-middle mr-2 -ml-2"></span>
-                About R&J Advisory
-              </span>
-            </div>
-            
-            <h1 className="font-serif text-5xl md:text-7xl mt-8 mb-6 leading-tight fade-up" style={{ transitionDelay: '0.1s' }}>
-              Bridging Capital <br />and African Potential
-            </h1>
-            
-            <p className="text-lg text-gray-300 font-sans leading-relaxed fade-up max-w-xl mb-8" style={{ transitionDelay: '0.2s' }}>
-              R&J Advisory is Namibia's premier trade, investment, and economic advisory firm. We are dedicated to unlocking value in frontier markets, guiding institutional investors, local enterprises, and policymakers through complex economic landscapes.
-            </p>
-          </div>
-          
-          <div className="md:w-1/2 relative h-[400px] md:h-[600px] w-full rounded-3xl overflow-hidden fade-up border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.5)]" style={{ transitionDelay: '0.3s' }}>
-            <div className="absolute inset-0 bg-rj-navy/40 mix-blend-multiply z-10"></div>
-            <img 
-              src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=1200&q=80" 
-              alt="Strategic advisory meeting"
-              className="w-full h-full object-cover"
-              loading="lazy"
-            />
-            
-            {/* Overlay Data Card */}
-             <div className="absolute bottom-8 right-8 z-20 bg-[#0A1628]/80 backdrop-blur-xl border border-white/10 rounded-2xl p-6 shadow-[0_8px_32px_rgba(0,0,0,0.4)] max-w-[280px]">
-                <div className="font-mono text-xs text-gray-400 mb-2">FOUNDED</div>
-                <div className="font-mono text-2xl text-white mb-4">2024</div>
-                <div className="font-mono text-xs text-gray-400 mb-2">HEADQUARTERS</div>
-                <div className="font-mono text-lg text-white">Windhoek, NAM</div>
-                <div className="mt-4 pt-4 border-t border-white/10 flex justify-between items-center">
-                    <span className="font-mono text-[10px] text-rj-gold">MARKET STATUS</span>
-                    <span className="font-mono text-xs text-[#00FF88]">ACTIVE</span>
-                </div>
-            </div>
-          </div>
-        </div>
+      <section className="relative px-6 max-w-7xl mx-auto mb-16">
+        <span className="font-mono text-xs uppercase tracking-widest text-rj-gold border border-white/10 bg-white/5 px-3 py-1 rounded-full inline-block mb-4">
+          About R&amp;J Steytler
+        </span>
+        
+        <h1 className="font-serif text-5xl md:text-7xl font-medium mb-6 leading-tight max-w-4xl">
+          Operating at the intersection of <br />
+          <span className="italic text-rj-gold">Government, Private Sector, Infrastructure and Finance</span>
+        </h1>
+        
+        <p className="text-lg md:text-xl text-gray-300 font-sans leading-relaxed max-w-3xl mb-8">
+          Established in 2025, R&amp;J Steytler is a Namibia-based advisory and project development firm working across African markets. We help governments, businesses, investors and institutions assess opportunities, structure projects, secure institutional alignment, prepare for financing and move approved initiatives towards implementation.
+        </p>
       </section>
 
-      {/* The 3 Pillars Section */}
-      <section className="relative py-24 bg-[#050D1A]">
-        {/* Background glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-[1px] bg-gradient-to-r from-transparent via-rj-gold/30 to-transparent"></div>
-        <div className="absolute top-1/2 left-[10%] w-[400px] h-[400px] bg-rj-gold/5 blur-[120px] rounded-full pointer-events-none"></div>
-        
+      {/* Fact Strip */}
+      <FactStrip />
+
+      {/* Section: Why R&J Exists & Four Pillars */}
+      <section className="relative py-24 bg-[#050D1A]/60 border-y border-white/5">
         <div className="max-w-7xl mx-auto px-6 relative z-10">
-          <div className="text-center max-w-3xl mx-auto mb-20 fade-up">
-            <h2 className="font-serif text-4xl md:text-5xl font-medium mb-6">Our Foundational Pillars</h2>
-            <p className="text-gray-400 text-lg font-sans">
-              The philosophy that drives our advisory practice and ensures sustainable, high-impact results for our clients.
+          <div className="max-w-3xl mb-16">
+            <span className="font-mono text-xs uppercase tracking-widest text-rj-gold mb-3 block">
+              Why R&amp;J Exists
+            </span>
+            <h2 className="font-serif text-4xl md:text-5xl font-medium mb-6">
+              Projects stall between <span className="italic text-rj-gold">approval and implementation</span>
+            </h2>
+            <p className="text-gray-300 text-base md:text-lg font-sans leading-relaxed">
+              Government institutions, businesses, investors, lenders and technical partners often assess the same project separately. This creates unclear responsibilities, repeated work and delays. R&amp;J coordinates these requirements — clarifying the decisions needed, assessing the commercial and institutional context, identifying responsible parties, preparing funding approaches and organising the next steps to move a project forward.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {pillars.map((pillar, i) => (
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {pillars.map((pillar) => (
               <div 
                 key={pillar.id} 
-                className="fade-up bg-[#0A1628]/40 backdrop-blur-xl border border-white/10 rounded-3xl p-10 shadow-[0_8px_32px_rgba(0,0,0,0.3)] relative group overflow-hidden transition-all duration-500 hover:bg-white hover:border-white hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(255,255,255,0.6)]"
-                style={{ transitionDelay: `${0.1 * (i + 1)}s` }}
+                className="bg-[#0A1628]/40 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-[0_8px_32px_rgba(0,0,0,0.3)] relative group overflow-hidden transition-all duration-500 hover:bg-white hover:border-white hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] flex flex-col justify-between"
               >
-                <div className="absolute top-0 left-6 w-12 h-[2px] bg-rj-gold/50 group-hover:bg-rj-navy transition-colors duration-500"></div>
-                
-                <div className="flex justify-between items-start mb-8">
-                  <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-rj-gold group-hover:bg-rj-navy/5 group-hover:border-rj-navy/20 group-hover:text-rj-navy transition-all duration-500">
-                    {pillar.icon}
+                <div>
+                  <div className="flex justify-between items-start mb-6">
+                    <div className="w-14 h-14 rounded-2xl bg-white/5 border border-white/10 flex items-center justify-center text-rj-gold group-hover:bg-rj-navy/5 group-hover:border-rj-navy/20 group-hover:text-rj-navy transition-all duration-500">
+                      {pillar.icon}
+                    </div>
+                    <span className="font-mono text-xs text-rj-gold bg-white/5 border border-white/10 px-2.5 py-1 rounded-full group-hover:border-rj-navy/20 group-hover:bg-rj-navy/5 group-hover:text-rj-navy transition-colors duration-500">
+                      {pillar.id} / 04
+                    </span>
                   </div>
-                  <span className="font-mono text-xl text-white/20 group-hover:text-rj-navy/40 transition-colors duration-500">{pillar.id}</span>
+                  
+                  <h3 className="font-serif text-xl font-medium mb-3 text-white group-hover:text-rj-navy transition-colors duration-500 leading-snug">
+                    {pillar.title}
+                  </h3>
+                  
+                  <p className="text-gray-400 leading-relaxed font-sans text-sm group-hover:text-rj-navy/80 transition-colors duration-500">
+                    {pillar.description}
+                  </p>
                 </div>
-                
-                <h3 className="font-serif text-2xl mb-4 text-white group-hover:text-rj-navy transition-colors duration-500">{pillar.title}</h3>
-                
-                <p className="text-gray-400 leading-relaxed font-sans text-sm md:text-base group-hover:text-rj-navy/80 transition-colors duration-500">
-                  {pillar.description}
-                </p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Call to action */}
-      <section className="max-w-5xl mx-auto px-6 mt-24 fade-up">
-        <div className="bg-gradient-to-br from-[#0A1628] to-[#050D1A] border border-white/10 rounded-3xl p-12 md:p-16 text-center relative overflow-hidden shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
-           {/* Abstract chart background */}
-           <svg className="absolute inset-0 w-full h-full opacity-[0.03] pointer-events-none" viewBox="0 0 1000 400" preserveAspectRatio="none">
-              <path d="M0,400 L0,200 Q100,250 200,150 T400,180 T600,100 T800,220 T1000,50 L1000,400 Z" fill="currentColor" />
-           </svg>
-           
-           <h2 className="font-serif text-3xl md:text-4xl mb-6 relative z-10">Partner with R&J Advisory</h2>
-           <p className="text-gray-400 mb-10 max-w-2xl mx-auto font-sans relative z-10">
-             Whether you are an international investor seeking localized insights, or a Namibian enterprise looking to expand, our team is ready to provide strategic guidance.
-           </p>
-           <a href="#contact" className="inline-flex items-center justify-center bg-rj-gold text-rj-navy px-8 py-4 rounded-full font-bold tracking-wider hover:bg-white hover:text-rj-navy transition-all shadow-[0_0_20px_rgba(200,162,74,0.3)] relative z-10 text-sm uppercase">
-             Contact Our Team <ArrowRight size={16} className="ml-2" />
-           </a>
+      {/* Selected Milestones Section */}
+      <MilestonesSection />
+
+      {/* Five-stage Method */}
+      <section className="px-6 max-w-7xl mx-auto my-24">
+        <div className="max-w-3xl mb-12">
+          <span className="font-mono text-xs uppercase tracking-widest text-rj-gold mb-2 block">
+            How We Work
+          </span>
+          <h2 className="font-serif text-3xl md:text-4xl font-medium text-white mb-4">
+            A five-stage <span className="italic text-rj-gold">method</span>
+          </h2>
+          <p className="text-gray-400 font-sans text-sm md:text-base leading-relaxed">
+            Every mandate proceeds through a disciplined sequence ensuring that evidence precedes recommendations and implementation follows clarity.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+          {methodStages.map((stage, i) => (
+            <div 
+              key={i}
+              className="p-6 bg-[#0A1628]/40 backdrop-blur-xl border border-white/10 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:border-rj-gold/40 transition-all flex flex-col justify-between"
+            >
+              <div className="font-mono text-xs text-rj-gold mb-4">{stage.num}</div>
+              <h3 className="font-serif text-lg font-medium text-white mb-3 leading-snug">
+                {stage.step}
+              </h3>
+              <p className="text-gray-400 text-xs leading-relaxed font-sans">
+                {stage.desc}
+              </p>
+            </div>
+          ))}
         </div>
       </section>
+
+      {/* Values in Practice */}
+      <section className="px-6 max-w-7xl mx-auto mb-24">
+        <div className="max-w-3xl mb-12">
+          <span className="font-mono text-xs uppercase tracking-widest text-rj-gold mb-2 block">
+            How We Operate
+          </span>
+          <h2 className="font-serif text-3xl md:text-4xl font-medium text-white mb-4">
+            Values shown through <span className="italic text-rj-gold">practice</span>
+          </h2>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {values.map((v, i) => (
+            <div 
+              key={i}
+              className="p-8 bg-[#0A1628]/40 backdrop-blur-xl border border-white/10 rounded-3xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] group relative overflow-hidden transition-all duration-500 hover:bg-white hover:border-white hover:-translate-y-2 hover:shadow-[0_0_40px_rgba(255,255,255,0.6)] flex flex-col justify-between"
+            >
+              <div>
+                <span className="font-mono text-xs text-rj-gold group-hover:text-rj-navy mb-4 inline-block transition-colors duration-500">{v.num} / 06</span>
+                <h3 className="font-serif text-xl font-medium text-white group-hover:text-rj-navy mb-3 transition-colors duration-500">{v.title}</h3>
+                <p className="text-gray-400 group-hover:text-rj-navy/80 text-sm leading-relaxed font-sans transition-colors duration-500">{v.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Global CTA */}
+      <GlobalCta />
     </div>
   );
 }
